@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace CodeNest_Code_Editor
 {
@@ -38,10 +32,10 @@ namespace CodeNest_Code_Editor
         private void SetupStyling()
         {
             // Let's give our form a darker theme for now
-            this.BackColor = Color.DarkBlue;
+            this.BackColor = Color.DarkGray;
             //this.ForeColor = Color.FromArgb(200, 200, 200);
             // Let's style the menu strip
-            menuStripMainMenus.BackColor = Color.DarkGreen;
+            menuStripMainMenus.BackColor = Color.SlateGray;
             menuStripMainMenus.ForeColor = Color.White;
 
             // Let's style the editor which is our rich text box
@@ -51,9 +45,17 @@ namespace CodeNest_Code_Editor
             richTextBoxEditor.AcceptsTab = true;
             richTextBoxEditor.WordWrap = true;
 
+            richTextBoxLineNumbers.BackColor = Color.Black;
+            richTextBoxLineNumbers.ForeColor = Color.White;
+            richTextBoxLineNumbers.Font = new Font("Consolas", 12);
+            richTextBoxLineNumbers.AcceptsTab = true;
+            richTextBoxLineNumbers.WordWrap = true;
+
             // Let's style the status strip
-            statusStripMainStatus.BackColor = Color.Purple;
-            toolStripStatusLabelMain.BackColor = Color.White;
+            statusStripMainStatus.BackColor = Color.Black;
+            toolStripStatusLabelMain.BackColor = Color.Black;
+            toolStripStatusLabelMain.ForeColor = Color.White;
+
             toolStripStatusLabelMain.Text = "Type your code in here...";
 
             // Let's expand the window title to set it to this
@@ -203,6 +205,25 @@ namespace CodeNest_Code_Editor
 
             // Let's update the status strip to let our user know the counts
             toolStripStatusLabelMain.Text = $"Lines: {lineCount} | Characters: {charCount}";
+
+            // Update the line numbers in the line numbers rich text box
+            richTextBoxLineNumbers.Clear();
+            for (int i = 1; i <= lineCount; i++)
+            {
+                // Append the line number to the line numbers rich text box
+                richTextBoxLineNumbers.AppendText(i.ToString() + Environment.NewLine);
+            }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // This is an informational modal about the program
+            MessageBox.Show(
+                "CodeNest is a code editor for your code editing needs. It can create, save, and update files of various formats. New features will be added in the future.", 
+                "", 
+                MessageBoxButtons.OK, 
+                MessageBoxIcon.Information
+                );
         }
     }
 }

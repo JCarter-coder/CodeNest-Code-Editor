@@ -26,7 +26,12 @@ namespace CodeNest_Code_Editor
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            // This is the constructor and it runs only once when the form is loaded
+            // Let's set up our dialog box filters for text code files
+            openFileDialogMain.Filter = "Text Files (*.txt)|*.txt|C Files (*.c)|*.c|C++ Files (*.cpp)|*.cpp|C# Files (*.cs)|*.cs|CSS Files (*.css)|*.css|HTML Files (*.html)|*.html|Java Files (*.java)|*.java|JavaScript Files (*.js)|*.js|Python Files (*.py)|*.py|All Files (*.*)|*.*";
+            saveFileDialogMain.Filter = "Text Files (*.txt)|*.txt|C Files (*.c)|*.c|C++ Files (*.cpp)|*.cpp|C# Files (*.cs)|*.cs|CSS Files (*.css)|*.css|HTML Files (*.html)|*.html|Java Files (*.java)|*.java|JavaScript Files (*.js)|*.js|Python Files (*.py)|*.py|All Files (*.*)|*.*";
 
+            richTextBoxEditor.Focus();
         }
 
         // This is our code to set up our custom styling after the form has been created
@@ -140,18 +145,22 @@ namespace CodeNest_Code_Editor
             // This method will run when the user raises this click event by clicing on the save as from our file menu
             // Now let's show the user the save dialog box even if we already have another current file
             // in our editor that we could just press save to save
-            try
+            // Show a dialog to chosse where to save the current file
+            if (saveFileDialogMain.ShowDialog() == DialogResult.OK)
             {
-                // Give user option to save the text file in a new or the same location
-                File.WriteAllText(saveFileDialogMain.FileName, richTextBoxEditor.Text);
-                m_currentFilePath = saveFileDialogMain.FileName;
-                this.Text = "CodeNest Code Editor - " + Path.GetFileName(m_currentFilePath);
-                toolStripStatusLabelMain.Text = "Saved file as: " + Path.GetFileName(m_currentFilePath);
-            }
-            catch (Exception ex)
-            {
-                // If an error is raised, show it to the user via message box
-                MessageBox.Show("Error saving as file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                try
+                {
+                    // Give user option to save the text file in a new or the same location
+                    File.WriteAllText(saveFileDialogMain.FileName, richTextBoxEditor.Text);
+                    m_currentFilePath = saveFileDialogMain.FileName;
+                    this.Text = "CodeNest Code Editor - " + Path.GetFileName(m_currentFilePath);
+                    toolStripStatusLabelMain.Text = "Saved file as: " + Path.GetFileName(m_currentFilePath);
+                }
+                catch (Exception ex)
+                {
+                    // If an error is raised, show it to the user via message box
+                    MessageBox.Show("Error saving as file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -181,6 +190,19 @@ namespace CodeNest_Code_Editor
             //        MessageBox.Show("Text not found!", "Find", MessageBoxButtons.OK, MessageBoxIcon.Information);
             //    }
             //}
+        }
+
+        private void richTextBoxEditor_TextChanged(object sender, EventArgs e)
+        {
+            // This method will run when any change in the rich text box changes
+            // Let's count the number of lines in the code
+            int lineCount = richTextBoxEditor.Lines.Length;
+
+            // Let's count the number of characters
+            int charCount = richTextBoxEditor.Text.Length;
+
+            // Let's update the status strip to let our user know the counts
+            toolStripStatusLabelMain.Text = $"Lines: {lineCount} | Characters: {charCount}";
         }
     }
 }

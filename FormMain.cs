@@ -41,13 +41,13 @@ namespace CodeNest_Code_Editor
             // Let's style the editor which is our rich text box
             richTextBoxEditor.BackColor = Color.Black;
             richTextBoxEditor.ForeColor = Color.White;
-            richTextBoxEditor.Font = new Font("Consolas", 12);
+            richTextBoxEditor.Font = new Font("Consolas", 15);
             richTextBoxEditor.AcceptsTab = true;
             richTextBoxEditor.WordWrap = true;
 
             richTextBoxLineNumbers.BackColor = Color.Black;
             richTextBoxLineNumbers.ForeColor = Color.White;
-            richTextBoxLineNumbers.Font = new Font("Consolas", 12);
+            richTextBoxLineNumbers.Font = new Font("Consolas", 15);
             richTextBoxLineNumbers.AcceptsTab = true;
             richTextBoxLineNumbers.WordWrap = true;
 
@@ -56,7 +56,7 @@ namespace CodeNest_Code_Editor
             toolStripStatusLabelMain.BackColor = Color.Black;
             toolStripStatusLabelMain.ForeColor = Color.White;
 
-            toolStripStatusLabelMain.Text = "Type your code in here...";
+            toolStripStatusLabelMain.Text = "Start coding...";
 
             // Let's expand the window title to set it to this
             // When we type in the word this, it means the code behind for the form we are in

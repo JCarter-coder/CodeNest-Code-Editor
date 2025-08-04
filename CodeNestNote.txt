@@ -1,0 +1,11 @@
+In this Code Editor, I am able to save and update files with various file extensions
+
+As you can see, the line number is updated as the file's lines increase or decrease in number
+
+I also added a Help menu with an About item
+This About item will open a message box into the center of the screen with some info
+
+In future iterations, I would like to add the following (increasing complexity):
+1. Ability to change themes
+2. A spell checker
+3. Incorporate built-in interpreters
